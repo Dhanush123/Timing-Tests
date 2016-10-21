@@ -13,6 +13,17 @@ using namespace std;
 #include <cstdlib> // for srand and rand
 #include <ctime> // for clock(), clock_t, time, and CLOCKS_PER_SEC
 
+#include "StaticArray.h"
+#include "DynamicArray.h"
+
+struct termInfo{
+  string term;
+  int numSectionsSeen;
+  DynamicArray<string> seenSections;
+};
+
+bool duplicateCheck(const string&, const string&, int&, StaticArray<termInfo, 200>&);
+
 int main(){
   srand(time(0)); rand(); // seed the random number generator (in case you need it)
 
@@ -20,9 +31,14 @@ int main(){
   cout << "Programmer's ID: 1553428\n";
   cout << "File: " << __FILE__ << endl;
 
+  int dupCount = 0;
+
+  int aSeenIndex = 0; // to track where we are in the following "array"
+  StaticArray<termInfo, 200> termsRecord; // 200 should be plenty for the number of terms
+
   // programmer customizations go here
   int n = 8000; // THE STARTING PROBLEM SIZE (MAX 250 MILLION)
-  string bigOh = "O(n)"; // YOUR PREDICTION: O(n), O(n log n), or O(n squared)
+  string bigOh = "O(n squared)"; // YOUR PREDICTION: O(n), O(n log n), or O(n squared)
 
   cout.setf(ios::fixed);
   cout.precision(4);
@@ -65,6 +81,11 @@ int main(){
       const string whenWhere((token = strtok(0, tab)) ? token : "");
       if (course.find('-') == string::npos) continue; // invalid line: no dash in course name
       const string subjectCode(course.begin(), course.begin() + course.find('-'));
+
+      bool isDuplicate = duplicateCheck(term, section, aSeenIndex, termsRecord);
+      if(isDuplicate){
+        dupCount++;
+      }
     }
     fin.close();
 
@@ -93,4 +114,28 @@ int main(){
     else cout << " (expected " << expectedSeconds << ')';
     cout << " for n=" << n << endl;
   }
+}
+
+bool duplicateCheck(const string &term, const string &section, int &termsIndex, StaticArray<termInfo, 200> &termsRecord){
+  //check if known/duplicate section in a existing term
+  for(int i = 0; i < termsIndex; i++){
+    if(termsRecord[i].term == term){
+      for(int j = 0; j < termsRecord[i].numSectionsSeen; j++){
+        if(termsRecord[i].seenSections[j] == section){
+          return true;
+        }
+      }
+      //this means couldn't find duplicate section in the given term, so adding new one to it
+      termsRecord[i].seenSections[termsRecord[i].numSectionsSeen] = section;
+      termsRecord[i].numSectionsSeen++;
+      return false;
+    }
+  }
+  //this means that term doesn't exist, so will have to make new term and add section
+  termsRecord[termsIndex].term = term;
+  termsRecord[termsIndex].numSectionsSeen++;
+  termsRecord[termsIndex].seenSections[0] = section;
+  //updating how many terms exist
+  termsIndex++;
+  return false;
 }

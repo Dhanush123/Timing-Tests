@@ -3,5 +3,5 @@ project(Schedule_2)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
-set(SOURCE_FILES ParsingWithoutDupChecking.cpp)
+set(SOURCE_FILES ParsingWithoutDupChecking.cpp ParsingPlusDupChecking.cpp StaticArray.h DynamicArray.h NestedForLoop.cpp)
 add_executable(Schedule_2 ${SOURCE_FILES})
