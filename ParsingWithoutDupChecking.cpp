@@ -8,7 +8,6 @@
 #include <string> // for string
 using namespace std;
 
-#include <cassert> // for assert
 #include <cmath> // for log and pow
 #include <cstdlib> // for srand and rand
 #include <ctime> // for clock(), clock_t, time, and CLOCKS_PER_SEC
