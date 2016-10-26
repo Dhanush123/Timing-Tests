@@ -3,7 +3,6 @@
 
 #include <iostream> // for cout, ios, and endl
 #include <string> // for string
-#include <algorithm>
 using namespace std;
 
 #include <cassert> // for assert
@@ -28,8 +27,7 @@ int main(){
   cout.precision(4);
   double elapsedSecondsNorm = 0;
   double expectedSeconds = 0;
-  for (int cycle = 0; cycle < 4; cycle++, n*= 2)
-  {
+  for (int cycle = 0; cycle < 4; cycle++, n*= 2){
     // problem setup goes here -- create a data structure of size n
 
     double* a = new double[n];

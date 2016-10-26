@@ -38,14 +38,13 @@ int main(){
 
   // programmer customizations go here
   int n = 8000; // THE STARTING PROBLEM SIZE (MAX 250 MILLION)
-  string bigOh = "O(n squared)"; // YOUR PREDICTION: O(n), O(n log n), or O(n squared)
+  string bigOh = "O(n)"; // YOUR PREDICTION: O(n), O(n log n), or O(n squared)
 
   cout.setf(ios::fixed);
   cout.precision(4);
   double elapsedSecondsNorm = 0;
   double expectedSeconds = 0;
-  for (int cycle = 0; cycle < 4; cycle++, n*= 2)
-  {
+  for (int cycle = 0; cycle < 4; cycle++, n*= 2){
     // problem setup goes here -- create a data structure of size n
 
     // assert that n is the size of the data structure if applicable
@@ -65,8 +64,7 @@ int main(){
     if (!fin.good()) throw "I/O error";
 
     // read the input file
-    for (int rep = 0; rep < n; rep++)
-    {
+    for (int rep = 0; rep < n; rep++){
       // read the line
       string line;
       getline(fin, line);
